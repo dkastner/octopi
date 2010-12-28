@@ -138,6 +138,16 @@ module Octopi
       token = Api.api.post(self.class.path_for(:delete), :id => self.name)['delete_token']
       Api.api.post(self.class.path_for(:delete), :id => self.name, :delete_token => token) unless token.nil?
     end
+
+    def watcher_count
+      self.watchers
+    end
+
+    def watcher_list
+      return @watcher_list unless @watcher_list.nil?
+      resp = Api.api.get("/repos/show/:owner/:id/watchers", :owner => @owner_name, :id => self.name)
+      @watcher_list = resp['watchers']
+    end
     
     def to_s
       name

@@ -152,6 +152,13 @@ class RepositoryTest < Test::Unit::TestCase
       end
     end
       
+    should "return the number of watchers" do
+      assert @repository.watcher_count > 1
+    end
 
+    should "return a list of watchers" do
+      user = @repository.watcher_list.first
+      assert u.login.length > 1
+    end
   end
 end
